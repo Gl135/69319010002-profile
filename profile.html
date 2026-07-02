@@ -1,1 +1,427 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>นันทรัตน์ สิมมา (พลอย)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Kanit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void: #12121f;
+    --bg-panel: #1b1b30;
+    --ink: #eae6f5;
+    --ink-dim: #9b96b8;
+    --lavender: #c9a7eb;
+    --mint: #93e0c9;
+    --peach: #ffb59c;
+    --line: rgba(234,230,245,0.12);
+  }
 
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background: var(--bg-void);
+    color: var(--ink);
+    font-family: 'Kanit', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* starfield */
+  #stars{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star{
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--ink);
+    border-radius: 50%;
+    animation: twinkle 3.5s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity: 0.15; }
+    50%{ opacity: 0.9; }
+  }
+
+  .wrap{
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    padding-top: 40px;
+  }
+
+  .status-line{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--mint);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+  }
+  .dot{
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--mint);
+    box-shadow: 0 0 8px var(--mint);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.4); opacity: 0.6; }
+  }
+
+  h1.name-en{
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(56px, 14vw, 120px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    background: linear-gradient(120deg, var(--lavender), var(--peach) 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .fullname{
+    font-family: 'Kanit', sans-serif;
+    font-weight: 400;
+    font-size: clamp(18px, 3.6vw, 24px);
+    color: var(--ink-dim);
+    margin-top: 4px;
+  }
+
+  .tagline{
+    margin-top: 18px;
+    font-size: clamp(14px, 2.4vw, 17px);
+    color: var(--ink-dim);
+    max-width: 40ch;
+    line-height: 1.7;
+  }
+
+  .scroll-hint{
+    margin-top: 48px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .scroll-hint::before{
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--ink-dim);
+    animation: extend 2s ease-in-out infinite;
+  }
+  @keyframes extend{
+    0%,100%{ width: 20px; }
+    50%{ width: 36px; }
+  }
+
+  /* ---------- SECTION LABEL ---------- */
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--lavender);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  section{
+    padding: 64px 0 0;
+    border-top: 1px solid var(--line);
+    margin-top: 64px;
+  }
+  section:first-of-type{ border-top: none; margin-top: 0; }
+
+  h2{
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    font-size: clamp(24px, 5vw, 32px);
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+
+  /* ---------- PROFILE CARD ---------- */
+  .profile-card{
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .avatar{
+    flex-shrink: 0;
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--lavender), var(--peach));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--bg-void);
+  }
+  .profile-meta .row{
+    display: flex;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .profile-meta .row span.k{ color: var(--mint); min-width: 84px; }
+
+  /* ---------- STAT GRID ---------- */
+  .stat-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .stat-card{
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .stat-card:hover{
+    transform: translateY(-4px);
+    border-color: var(--lavender);
+  }
+  .stat-label{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .stat-value{
+    font-family: 'Kanit', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--ink);
+  }
+
+  /* ---------- BAR STATS (playful) ---------- */
+  .bar-item{ margin-bottom: 22px; }
+  .bar-item:last-child{ margin-bottom: 0; }
+  .bar-top{
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+    margin-bottom: 8px;
+  }
+  .bar-top .num{ color: var(--peach); }
+  .bar-track{
+    height: 8px;
+    background: rgba(234,230,245,0.08);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .bar-fill{
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--mint), var(--lavender));
+    width: 0%;
+    transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* ---------- HOBBY LIST ---------- */
+  .hobby-list{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hobby-item{
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 20px 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hobby-item:last-child{ border-bottom: none; }
+  .hobby-num{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+  .hobby-name{
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .hobby-desc{
+    font-size: 14px;
+    color: var(--ink-dim);
+    margin-left: auto;
+    text-align: right;
+    max-width: 44%;
+  }
+
+  footer{
+    margin-top: 80px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    text-align: center;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 480px){
+    .profile-card{ flex-direction: column; text-align: center; }
+    .stat-grid{ grid-template-columns: 1fr; }
+    .hobby-item{ flex-wrap: wrap; }
+    .hobby-desc{ max-width: 100%; text-align: left; margin-left: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="status-line"><span class="dot"></span> สถานะปัจจุบัน: กำลังงีบหลับ</div>
+    <h1 class="name-en">พลอย</h1>
+    <div class="fullname">นันทรัตน์ สิมมา</div>
+    <p class="tagline">นักเรียนอาชีวศึกษา สาขาเทคโนโลยีสารสนเทศ จังหวัดชลบุรี ผู้เชื่อว่าการนอนคือทักษะระดับสูงสุด และเกมคือพื้นที่ผ่อนคลายที่ดีที่สุด</p>
+    <div class="scroll-hint">เลื่อนลงเพื่อดูข้อมูลเพิ่มเติม</div>
+  </div>
+
+  <!-- PROFILE -->
+  <section>
+    <div class="eyebrow">Profile</div>
+    <h2>ข้อมูลส่วนตัว</h2>
+    <div class="profile-card">
+      <div class="avatar">พ</div>
+      <div class="profile-meta">
+        <div class="row"><span class="k">ชื่อ-สกุล</span> นันทรัตน์ สิมมา</div>
+        <div class="row"><span class="k">ชื่อเล่น</span> พลอย</div>
+        <div class="row"><span class="k">วันเกิด</span> 10 กันยายน</div>
+        <div class="row"><span class="k">อายุ</span> 18 ปี</div>
+      </div>
+    </div>
+
+    <div style="height:16px"></div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">การศึกษา</div>
+        <div class="stat-value">อาชีวศึกษา ชลบุรี</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">สาขา</div>
+        <div class="stat-value">เทคโนโลยีสารสนเทศ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BARS -->
+  <section>
+    <div class="eyebrow">Status</div>
+    <h2>ระดับพลังงานประจำวัน</h2>
+    <div class="stat-card">
+      <div class="bar-item">
+        <div class="bar-top"><span>พลังการนอน</span><span class="num">100 / 100</span></div>
+        <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-top"><span>ความสนใจในเกม</span><span class="num">90 / 100</span></div>
+        <div class="bar-track"><div class="bar-fill" data-w="90"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-top"><span>ความตื่นตัวตอนเช้า</span><span class="num">20 / 100</span></div>
+        <div class="bar-track"><div class="bar-fill" data-w="20"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOBBIES -->
+  <section>
+    <div class="eyebrow">Interests</div>
+    <h2>ความชอบ &amp; งานอดิเรก</h2>
+    <div class="hobby-list">
+      <div class="hobby-item">
+        <span class="hobby-num">01</span>
+        <span class="hobby-name">การนอน</span>
+        <span class="hobby-desc">กิจกรรมโปรดอันดับหนึ่ง ชาร์จพลังได้ดีที่สุด</span>
+      </div>
+      <div class="hobby-item">
+        <span class="hobby-num">02</span>
+        <span class="hobby-name">เล่นเกม</span>
+        <span class="hobby-desc">งานอดิเรกยามว่าง ผ่อนคลายและสนุกไปพร้อมกัน</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    NUNTARAT SIMMA · IT STUDENT · CHONBURI © 2026
+  </footer>
+
+</div>
+
+<script>
+  // generate starfield
+  const starsContainer = document.getElementById('stars');
+  const starCount = 60;
+  for(let i=0;i<starCount;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random()*100 + '%';
+    s.style.top = Math.random()*100 + '%';
+    s.style.animationDelay = (Math.random()*3.5) + 's';
+    starsContainer.appendChild(s);
+  }
+
+  // animate bars on scroll into view
+  const bars = document.querySelectorAll('.bar-fill');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        el.style.width = el.dataset.w + '%';
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  bars.forEach(b=>observer.observe(b));
+</script>
+
+</body>
+</html>
